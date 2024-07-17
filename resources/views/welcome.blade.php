@@ -17,7 +17,7 @@
         <div class="bg-gray-50 text-black">
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="w-full max-w-2xl px-6 lg:max-w-7xl flex flex-col items-center">
-                    <h1 class="text-3xl font-bold">Ondpitch Booking System</h1>
+                    <h1 class="text-3xl font-bold text-center">Ondpitch Booking System</h1>
                     @if (Route::has('login'))
                         <livewire:welcome.navigation />
                     @endif
