@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\admin;
+use App\Livewire\Admin\Dashboard;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Booking\BookingCreate;
@@ -23,4 +25,6 @@ Route::get('/logout', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/bookings', BookingIndexing::class)->name('booking.index');
     Route::get('/booking-create', BookingCreate::class)->name('booking.create');
+
+    Route::get('/admin-dashboard', Dashboard::class)->name('admin.dashboard')->middleware(admin::class);
 });

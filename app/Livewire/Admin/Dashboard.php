@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Livewire\Booking;
+namespace App\Livewire\Admin;
 
 use App\Models\Booking;
 use Livewire\Component;
 use Filament\Tables\Table;
+use Livewire\Attributes\Layout;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Contracts\HasForms;
@@ -15,18 +16,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 
-class BookingIndexing extends Component implements HasForms, HasTable
+class Dashboard extends Component implements HasForms, HasTable
 {
-    use InteractsWithTable, InteractsWithForms;
+    use InteractsWithForms, InteractsWithTable;
+
+    #[Layout('components.layouts.admin')]
     public function render()
     {
-        return view('livewire.booking.booking-indexing');
+        return view('livewire.admin.dashboard');
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->query( Booking::query()->where('user_id', auth()->id())->orderBy('created_at', 'desc'))
+            ->query( Booking::query()->orderBy('created_at', 'desc'))
             ->heading('Booking')
             ->description('Manage your Bookings here.')
             ->searchable()
