@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Booking;
 use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,7 +23,7 @@ class DatabaseSeeder extends Seeder
         foreach ($roles as $role) {
             Role::create($role);
         }
-        User::factory(10)->create();
+        User::factory()->count(10)->create();
 
         User::factory()->create([
             'name' => 'John',
@@ -30,5 +31,8 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1,
             'password' => bcrypt('password'),
         ]);
+
+        // create bookings
+        Booking::factory()->count(10)->create();
     }
 }
