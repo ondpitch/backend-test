@@ -17,7 +17,9 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => rand(1, 5),
+            'date' => fake()->dateTimeBetween('now', '+1 month'),
+            'title' => fake()->sentence,
         ];
     }
 }
