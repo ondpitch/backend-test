@@ -44,7 +44,9 @@ defineProps<{
   <div class="container mx-auto">
     <div class="flex justify-center items-center font-semibold" style="height: 90vh">
       <div class="text-center">
-        <h1 class="text-4xl font-bold text-red-500">Welcome to OnDPitch</h1>
+        <h1 class="text-4xl font-bold text-red-500">
+          Welcome to <img src="logo.png" alt="logo" />
+        </h1>
         <p class="text-lg my-4 font-semibold">want to know more?</p>
         <!-- online image showing a man in a meeting-->
         <div
