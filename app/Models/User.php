@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -54,8 +55,8 @@ class User extends Authenticatable
     /**
      * Get the booking that belong to the user.
      */
-    public function booking(): BelongsTo
+    public function booking(): HasMany
     {
-        return $this->belongsTo(Booking::class);
+        return $this->hasMany(Booking::class);
     }
 }
