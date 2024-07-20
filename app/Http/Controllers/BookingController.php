@@ -33,12 +33,12 @@ class BookingController extends Controller
 
         $booking = Booking::create($attributes);
 
-        return redirect()->route('dashboard', $booking)->with('success', 'Booking created.');
+        return redirect()->route('dashboard', auth()->user()->bookings)->with('success', 'Booking created.');
     }
 
     public function edit(Booking $booking)
     {
-        return Inertia::render('Bookings/creaate', [
+        return Inertia::render('Bookings/edit', [
             'booking' => [
                 'title' => $booking->name,
                 'date' => $booking->date,
