@@ -41,7 +41,7 @@ const showingNavigationDropdown = ref(false);
                   :href="route('bookings.create')"
                   :active="route().current('bookings.create')"
                 >
-                  Bookings
+                  Add Booking
                 </NavLink>
               </div>
             </div>
