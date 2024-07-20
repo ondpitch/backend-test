@@ -1,10 +1,21 @@
 <?php
 
-use Laravel\Dusk\Browser;
+namespace Tests\Browser;
 
-test('example', function () {
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\User;
+
+uses(DatabaseMigrations::class);
+
+beforeEach(function () {
+    // Any setup before each test
+});
+
+it('can view the login form', function () {
     $this->browse(function (Browser $browser) {
-        $browser->visit('/')
-                ->assertSee('Laravel');
+        $browser->visit('/login')
+            ->assertSee('LOG IN');
     });
 });
