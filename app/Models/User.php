@@ -20,6 +20,8 @@ class User extends Authenticatable
      */
     protected $guarded = [];
 
+    protected $with = ['role', 'bookings'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -43,6 +45,8 @@ class User extends Authenticatable
         ];
     }
 
+
+
     /**
      * Get the role that belong to the user.
      */
@@ -55,8 +59,8 @@ class User extends Authenticatable
     /**
      * Get the booking that belong to the user.
      */
-    public function booking(): HasMany
+    public function bookings(): HasMany
     {
-        return $this->hasMany(Booking::class)->orderBy('date', 'asc');
+        return $this->hasMany(Booking::class);
     }
 }
