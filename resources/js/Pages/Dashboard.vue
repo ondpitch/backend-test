@@ -89,7 +89,7 @@ onMounted(() => {
           </button>
         </div>
 
-        <form @submit.prevent="handleDateFilter">
+        <form @submit.prevent="handleDateFilter" class="sm:block flex flex-col gap-5">
           <h1 class="text-center font-semibold">Filter</h1>
           <label for="start">
             Start date:
