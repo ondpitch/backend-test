@@ -11,7 +11,7 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = auth()->user()->bookings;
-        if (auth()->user()->role->slug === 'admin') $bookings = Booking::all()->orderBy('date', 'desc');
+        if (auth()->user()->role->slug === 'admin') $bookings = Booking::orderBy('date', 'asc')->get();
         return Inertia::render('Dashboard', [
             'bookings' => $bookings,
         ]);
@@ -38,9 +38,10 @@ class BookingController extends Controller
 
     public function edit(Booking $booking)
     {
-        return Inertia::render('Bookings/edit', [
+        return Inertia::render('Booking/Edit', [
             'booking' => [
-                'title' => $booking->name,
+                'id' => $booking->id,
+                'title' => $booking->title,
                 'date' => $booking->date,
             ],
         ]);
@@ -62,6 +63,6 @@ class BookingController extends Controller
     {
         $booking->delete();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard', auth()->user()->bookings)->with('success', 'Booking deleted');
     }
 }
