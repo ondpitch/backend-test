@@ -109,7 +109,10 @@ onMounted(() => {
         <table class="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
-              <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+              <th
+                class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                v-if="$page.props.auth.user.role.slug == 'admin'"
+              >
                 <p
                   class="block antialiased font-sans text-sm text-blue-gray-900 font-normal leading-none opacity-70"
                 >
@@ -155,7 +158,10 @@ onMounted(() => {
           </thead>
           <tbody>
             <tr v-for="booking in filterBookings" :key="booking.id">
-              <td class="p-4 border-b border-blue-gray-50">
+              <td
+                class="p-4 border-b border-blue-gray-50"
+                v-if="$page.props.auth.user.role.slug == 'admin'"
+              >
                 <div class="flex items-center gap-3">
                   <img
                     src="https://docs.material-tailwind.com/img/logos/logo-spotify.svg"
