@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage, Link, useForm } from '@inertiajs/vue3';
-import { defineProps, onMounted, ref } from 'vue';
+import { defineProps, onMounted, ref, computed } from 'vue';
 
 const { props } = usePage();
-defineProps<{
+const prop = defineProps<{
   bookings: {
     id: number;
     title: string;
@@ -14,13 +14,41 @@ defineProps<{
 
 const success = ref(props.flash.success);
 const form = useForm({});
+const bookings = ref(prop.bookings);
+const search = ref('');
+
+const form2 = useForm({
+  start: new Date().toISOString().split('T')[0],
+  end: '',
+});
+
+const form3 = useForm({});
 
 const handleDeletion = (id: number) => {
   if (confirm('Are you sure you want to delete this booking?')) {
     // a delete request
-    form.delete(route('bookings.destroy', id));
+    form.delete(route('bookings.destroy', id), {
+      onSuccess: () => {
+        bookings.value = bookings.value.filter((booking) => booking.id !== id);
+      },
+    });
   }
 };
+
+const handleDateFilter = () => {
+  // filter bookings by date
+  form2.get('/dashboard?start=' + form2.start + '&end=' + form2.end);
+};
+
+const filterBookings = computed(() => {
+  if (search.value === '') {
+    return bookings.value;
+  } else {
+    return bookings.value.filter((booking) => {
+      return booking.title.toLowerCase().includes(search.value.toLowerCase());
+    });
+  }
+});
 
 onMounted(() => {
   setTimeout(() => {
@@ -39,15 +67,44 @@ onMounted(() => {
   <AuthenticatedLayout>
     <!-- Table of bookings with fields title firstname email date and actions reschedule and cancel -->
     <div class="flex flex-col min-h-screen items-center justify-center bg-white">
-      <h1 class="mt-5">My Bookings</h1>
+      <h1 class="my-16 text-2xl font-bold">My Bookings</h1>
 
       <!-- search input -->
-      <input
-        type="search"
-        name="search"
-        id="search"
-        class="rounded-xl focus:border-blue-500"
-      />
+      <div class="flex flex-col gap-5">
+        <div class="flex gap-5 justify-center">
+          <input
+            type="search"
+            v-model="search"
+            name="search"
+            id="search"
+            placeholder="Search for a booking"
+            class="rounded-xl focus:border-blue-500"
+          />
+
+          <!-- all button -->
+          <button
+            @click.prevent="form3.get(route('dashboard'))"
+            class="font-semibold hover:text-blue-500"
+          >
+            All
+          </button>
+        </div>
+
+        <form @submit.prevent="handleDateFilter">
+          <h1 class="text-center font-semibold">Filter</h1>
+          <label for="start">
+            Start date:
+            <input type="date" name="start" v-model="form2.start" required />
+          </label>
+          <label for="end">
+            End date:
+            <input type="date" :min="form2.start" v-model="form2.end" required />
+          </label>
+          <button type="submit" class="bg-blue-500 text-white rounded-xl px-3 py-2 ml-4">
+            Filter
+          </button>
+        </form>
+      </div>
 
       <div class="p-6 overflow-scroll px-0">
         <table class="w-full min-w-max table-auto text-left">
@@ -98,7 +155,7 @@ onMounted(() => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="booking in bookings" :key="booking.id">
+            <tr v-for="booking in filterBookings" :key="booking.id">
               <td class="p-4 border-b border-blue-gray-50">
                 <div class="flex items-center gap-3">
                   <img
