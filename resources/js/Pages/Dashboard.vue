@@ -63,7 +63,6 @@ onMounted(() => {
   <div v-if="success" class="mb-4 font-medium text-sm text-green-600 ml-auto">
     {{ success }}
   </div>
-
   <AuthenticatedLayout>
     <!-- Table of bookings with fields title firstname email date and actions reschedule and cancel -->
     <div class="flex flex-col min-h-screen items-center justify-center bg-white">
