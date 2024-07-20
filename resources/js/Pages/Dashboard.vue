@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { defineProps, onMounted, ref } from 'vue';
 
-const props = defineProps<{
+const { props } = usePage();
+defineProps<{
   bookings: {
     id: number;
     title: string;
@@ -10,11 +12,21 @@ const props = defineProps<{
   }[];
 }>();
 
-console.log(props.bookings);
+const success = ref(props.flash.success);
+
+onMounted(() => {
+  setTimeout(() => {
+    success.value = '';
+  }, 2000);
+});
 </script>
 
 <template>
   <Head title="Dashboard" />
+
+  <div v-if="success" class="mb-4 font-medium text-sm text-green-600 ml-auto">
+    {{ success }}
+  </div>
 
   <AuthenticatedLayout>
     <!-- Table of bookings with fields title firstname email date and actions reschedule and cancel -->
