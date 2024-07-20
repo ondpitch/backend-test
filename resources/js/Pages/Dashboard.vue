@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+
+const props = defineProps<{
+  bookings: {
+    id: number;
+    title: string;
+    date: string;
+  }[];
+}>();
+
+console.log(props.bookings);
 </script>
 
 <template>
@@ -9,7 +19,7 @@ import { Head } from '@inertiajs/vue3';
   <AuthenticatedLayout>
     <!-- Table of bookings with fields title firstname email date and actions reschedule and cancel -->
     <div class="flex flex-col min-h-screen items-center justify-center bg-white">
-      <h1>My Bookings</h1>
+      <h1 class="mt-5">My Bookings</h1>
 
       <!-- search input -->
       <input
@@ -68,7 +78,7 @@ import { Head } from '@inertiajs/vue3';
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="booking in bookings" :key="booking.id">
               <td class="p-4 border-b border-blue-gray-50">
                 <div class="flex items-center gap-3">
                   <img
@@ -79,7 +89,7 @@ import { Head } from '@inertiajs/vue3';
                   <p
                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold"
                   >
-                    John
+                    {{ $page.props.auth.user.name }}
                   </p>
                 </div>
               </td>
@@ -87,17 +97,19 @@ import { Head } from '@inertiajs/vue3';
                 <p
                   class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
                 >
-                  This is a title
+                  {{ booking.title }}
                 </p>
               </td>
               <td class="p-4 border-b border-blue-gray-50">
                 <p
                   class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
                 >
-                  Wed 3:00pm
+                  {{ new Date(booking.date).toDateString() }}
                 </p>
               </td>
-              <td class="p-4 border-b border-blue-gray-50">email@email.com</td>
+              <td class="p-4 border-b border-blue-gray-50">
+                {{ $page.props.auth.user.email }}
+              </td>
               <td class="p-4 border-b border-blue-gray-50">
                 <button
                   class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
