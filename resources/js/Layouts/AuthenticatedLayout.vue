@@ -135,7 +135,17 @@ const showingNavigationDropdown = ref(false);
               :href="route('dashboard')"
               :active="route().current('dashboard')"
             >
-              Dashboard
+              {{
+                $page.props.auth.user.role.slug === 'admin'
+                  ? 'Admin Dashboard'
+                  : 'Dashboard'
+              }}
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              :href="route('bookings.create')"
+              :active="route().current('bookings.create')"
+            >
+              Add Booking
             </ResponsiveNavLink>
           </div>
 
