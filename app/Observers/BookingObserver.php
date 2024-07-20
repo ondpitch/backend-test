@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Mail\BookingCreated;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class BookingObserver
@@ -13,7 +14,20 @@ class BookingObserver
      */
     public function created(Booking $booking): void
     {
-        Mail::to('admin@bookings.com')->send(new BookingCreated($booking));
+        try {
+            // Attempt to send email notification
+            Mail::to('admin@bookings.com')->send(new BookingCreated($booking));
+
+            // Log the email sent
+            Log::info(
+                'Meeting scheduled email sent to admin.' .
+                    'Name: ' . $booking->owner->name . ' Email: ' . $booking->owner->email .
+                    'Meeting Date: ' . $booking->date . ' Meeting Title: ' . $booking->title
+            );
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Failed to send meeting scheduled email: ' . $e->getMessage());
+        }
     }
 
     /**
