@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head, usePage, Link, useForm } from '@inertiajs/vue3';
 import { defineProps, onMounted, ref } from 'vue';
 
 const { props } = usePage();
@@ -13,6 +13,14 @@ defineProps<{
 }>();
 
 const success = ref(props.flash.success);
+const form = useForm({});
+
+const handleDeletion = (id: number) => {
+  if (confirm('Are you sure you want to delete this booking?')) {
+    // a delete request
+    form.delete(route('bookings.destroy', id));
+  }
+};
 
 onMounted(() => {
   setTimeout(() => {
@@ -123,9 +131,10 @@ onMounted(() => {
                 {{ $page.props.auth.user.email }}
               </td>
               <td class="p-4 border-b border-blue-gray-50">
-                <button
+                <Link
                   class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
                   type="button"
+                  :href="route('bookings.edit', booking.id)"
                 >
                   <span
                     class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2"
@@ -142,30 +151,31 @@ onMounted(() => {
                       ></path>
                     </svg>
                   </span>
-                </button>
+                </Link>
               </td>
               <td class="p-4 border border-blue-gray-50">
-                <button
-                  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
-                  type="button"
+                <!-- Delete form -->
+                <form
+                  @submit.prevent="handleDeletion(booking.id)"
+                  class="flex items-center justify-center"
                 >
-                  <!-- delete icon -->
-                  <span
-                    class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2"
+                  <button
+                    type="submit"
+                    class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      class="h-4 w-4"
+                      height="24px"
+                      viewBox="0 -960 960 960"
+                      width="24px"
+                      fill="red"
                     >
                       <path
-                        d="M3 6a1 1 0 011-1h16a1 1 0 011 1v1h2v2h-1v11a3 3 0 01-3 3H6a3 3 0 01-3-3V9H2V7h1V6zm2 2v11a1 1 0 001 1h14a1 1 0 001-1V8H5zm5 2v7a1 1 0 002 0V10a1 1 0 00-2 0zm4 0v7a1 1 0 002 0V10a1 1 0 00-2 0z"
-                      ></path>
+                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"
+                      />
                     </svg>
-                  </span>
-                </button>
+                  </button>
+                </form>
               </td>
             </tr>
           </tbody>
