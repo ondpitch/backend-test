@@ -31,7 +31,11 @@ const showingNavigationDropdown = ref(false);
                   :href="route('dashboard')"
                   :active="route().current('dashboard')"
                 >
-                  Dashboard
+                  {{
+                    $page.props.auth.user.role.slug === 'admin'
+                      ? 'Admin Dashboard'
+                      : 'Dashboard'
+                  }}
                 </NavLink>
                 <NavLink
                   :href="route('bookings.create')"
