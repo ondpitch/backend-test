@@ -30,7 +30,7 @@ const submit = () => {
     <div class="grid grid-cols-2 gap-3 items-center mx-auto" style="width: 80vw">
       <form @submit.prevent="submit">
         <div>
-          <InputLabel for="name" value="Name" />
+          <InputLabel for="name" value="First Name" />
 
           <TextInput
             id="name"
