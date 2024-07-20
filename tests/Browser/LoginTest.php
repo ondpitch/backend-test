@@ -37,3 +37,19 @@ it('can log in with valid credentials', function () {
             ->assertSee('Dashboard');
     });
 });
+
+it('cannot log in with invalid credentials', function () {
+    $user = User::factory()->create([
+        'email' => 'user@example.com',
+        'password' => bcrypt('password')
+    ]);
+
+    $this->browse(function (Browser $browser) use ($user) {
+        $browser->visit('/login')
+            ->type('#email', $user->email)
+            ->type('#password', 'wrongpassword')
+            ->press('LOG IN')
+            ->waitForText('These credentials do not match our records.')
+            ->assertSee('These credentials do not match our records.');
+    });
+});
