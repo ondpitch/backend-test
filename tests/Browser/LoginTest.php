@@ -19,3 +19,21 @@ it('can view the login form', function () {
             ->assertSee('LOG IN');
     });
 });
+
+it('can log in with valid credentials', function () {
+    $user = User::factory()->create([
+        'email' => 'user@example.com',
+        'password' => bcrypt('password')
+    ]);
+
+    $this->browse(function (Browser $browser) use ($user) {
+        $browser->visit('/login')
+            ->type('#email', $user->email)
+            ->type('#password', 'password')
+            ->check('#remember')
+            ->press('LOG IN')
+            ->waitForLocation('/dashboard')
+            ->assertPathIs('/dashboard')
+            ->assertSee('Dashboard');
+    });
+});
