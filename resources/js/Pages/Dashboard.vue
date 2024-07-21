@@ -164,14 +164,14 @@ onMounted(() => {
               >
                 <div class="flex items-center gap-3">
                   <img
-                    src="https://docs.material-tailwind.com/img/logos/logo-spotify.svg"
+                    src="https://cdn.quasar.dev/img/avatar4.jpg"
                     alt="Spotify"
                     class="inline-block relative object-center rounded-full w-12 h-12 border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                   />
                   <p
                     class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold"
                   >
-                    {{ $page.props.auth.user.name }}
+                    {{ booking.owner.name }}
                   </p>
                 </div>
               </td>
@@ -190,10 +190,11 @@ onMounted(() => {
                 </p>
               </td>
               <td class="p-4 border-b border-blue-gray-50">
-                {{ $page.props.auth.user.email }}
+                {{ booking.owner.email }}
               </td>
               <td class="p-4 border-b border-blue-gray-50">
                 <Link
+                  v-if="$page.props.auth.user.name == booking.owner.name"
                   class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20"
                   type="button"
                   :href="route('bookings.edit', booking.id)"

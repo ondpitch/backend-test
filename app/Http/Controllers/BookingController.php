@@ -13,7 +13,7 @@ class BookingController extends Controller
         $bookings = auth()->user()->bookings()->latest();
         if (auth()->user()->role->slug === 'admin') $bookings = Booking::latest();
         return Inertia::render('Dashboard', [
-            'bookings' => $bookings->filter(request(['start', 'end', 'search']))->get(),
+            'bookings' => $bookings->filter(request(['start', 'end', 'search']))->with(['owner'])->get(),
         ]);
     }
 
