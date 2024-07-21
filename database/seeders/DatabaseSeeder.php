@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         foreach ($roles as $role) {
             Role::create($role);
         }
-        User::factory()->count(10)->create();
+        User::factory()->count(10)->create(['role_id' => 2]);
 
         User::factory()->create([
             'name' => 'John',
