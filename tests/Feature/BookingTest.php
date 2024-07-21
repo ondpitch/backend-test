@@ -8,6 +8,15 @@ use function Pest\Laravel\actingAs;
 
 uses(RefreshDatabase::class)->group('BookingController');
 
+afterAll(function () {
+    //migrate and seed database
+
+    parent::setUp();
+
+    // Migrate and seed the database
+    $this->artisan('migrate:fresh --seed');
+});
+
 it('can view the dashboard with bookings', function () {
     $user = User::factory()->create();
     Booking::factory()->for($user, 'owner')->count(3)->create();
