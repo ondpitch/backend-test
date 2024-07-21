@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,4 +23,11 @@ class BookingFactory extends Factory
             'title' => fake()->sentence,
         ];
     }
+
+    // public function forOwner(User $owner)
+    // {
+    //     return $this->state(fn (array $attributes) => [
+    //         'user_id' => $owner->id,
+    //     ]);
+    // }
 }
