@@ -34,7 +34,7 @@ it(
                 ->type('#password', 'secreteee')
                 ->type('#password_confirmation', 'secreteee')
                 ->press('REGISTER')
-                ->waitForText('Dashboard', 10) // Increase the timeout to 10 seconds
+                ->waitForText('Dashboard')
                 ->assertSee('Dashboard');
         });
     }
