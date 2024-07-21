@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Booking;
+use App\Observers\BookingObserver;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Inertia::share('flash', function () {
+            return [
+                'success' => session('success'),
+            ];
+        });
+
+        // Register the BookingObserver
+        Booking::observe(BookingObserver::class);
     }
 }
