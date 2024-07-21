@@ -9,8 +9,14 @@ use App\Models\User;
 
 uses(DatabaseMigrations::class);
 
+
 beforeEach(function () {
-    // Any setup before each test
+    //migrate and seed database
+
+    parent::setUp();
+
+    // Migrate and seed the database
+    $this->artisan('migrate:fresh --seed');
 });
 
 it('can view the login form', function () {
