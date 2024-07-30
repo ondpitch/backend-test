@@ -5,7 +5,7 @@ namespace App\Enums;
 enum RoleStatus: string
 {
     case ADMIN = 'admin';
-    case User = 'user';
+    case USER = 'user';
 
     public static function values(): array
     {
