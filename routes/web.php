@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
+Route::get('/book', function () {
+    return Inertia::render('Booking/Create');
+})->middleware(['auth'])->name('booking.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
