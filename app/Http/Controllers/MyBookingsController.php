@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class MyBookingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): InertiaResponse
     {
         $myBookings = auth()->user()->bookings()
             ->select('name', 'title', 'date', 'email')
             ->paginate(10);
 
-        return Inertia::render('MyBookings', [
+        return Inertia::render('Booking/MyBookings', [
             'bookings' => $myBookings,
         ]);
 
