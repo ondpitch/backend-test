@@ -86,11 +86,8 @@ export default function Register() {
                         >
                             {showPassword ? "Hide" : "Show"}
                         </button>
-                        <InputError
-                            message={errors.password}
-                            className="mt-2"
-                        />
                     </div>
+                    <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
