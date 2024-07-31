@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleStatus;
 use App\Http\Requests\Booking\CreateBookingRequest;
+use App\Models\User;
+use App\Notifications\BookingCreated;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 
@@ -22,8 +26,12 @@ class BookingController extends Controller
      */
     public function store(CreateBookingRequest $request): RedirectResponse
     {
+        $admin = User::where('role', RoleStatus::ADMIN->value)->first();
+
         $user = auth()->user();
-        $user->bookings()->create($request->validated());
+        $newBooking = $user->bookings()->create($request->validated());
+
+        Notification::send([$admin], new BookingCreated($newBooking));
 
         return redirect()->route('my.bookings');
     }

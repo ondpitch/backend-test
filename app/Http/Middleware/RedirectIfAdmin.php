@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckUserRole
+class RedirectIfAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role === RoleStatus::USER->value) {
-            return redirect()->back();
+        if (Auth::check() && Auth::user()->role === RoleStatus::ADMIN->value) {
+            return redirect(route('dashboard'));
         }
 
         return $next($request);

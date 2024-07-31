@@ -25,7 +25,7 @@ Route::middleware(['auth', 'admin.redirect'])->group(function () {
 
 });
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', [AdminBookingController::class, 'index'])->name('dashboard');
 

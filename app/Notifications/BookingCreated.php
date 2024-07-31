@@ -7,14 +7,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BookingCreated extends Notification
+class BookingCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public $booking)
     {
         //
     }
@@ -35,9 +35,12 @@ class BookingCreated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('New Booking Created')
+            ->line("Title: {$this->booking->title}")
+            ->line("Name: {$this->booking->name}")
+            ->line("Email: {$this->booking->email}")
+            ->line("Date: {$this->booking->date}")
+            ->line('Thank you for using our application!');
     }
 
     /**
