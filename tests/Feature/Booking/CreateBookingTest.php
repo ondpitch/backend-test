@@ -1,9 +1,14 @@
 <?php
 
+use App\Enums\RoleStatus;
 use App\Models\Booking;
 use App\Models\User;
+use App\Notifications\BookingCreated;
+use Illuminate\Support\Facades\Notification;
 
 test('can create booking', function () {
+    User::factory(['email' => 'admin@bookings.com', 'password' => 'password', 'role' => RoleStatus::ADMIN->value])
+        ->create();
 
     $user = User::factory()->create();
     $this->actingAs($user);
@@ -42,5 +47,25 @@ test('cannot see other users bookings', function () {
 
     expect($user2->bookings)->toHaveCount(3);
     expect($user1->bookings)->toHaveCount(0);
+
+});
+
+test('can send email to admin after booking', function () {
+    $this->seed();
+
+    Notification::fake();
+
+    $admin = User::where('role', RoleStatus::ADMIN->value)->first();
+
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $newBooking = Booking::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    Notification::send([$admin], new BookingCreated($newBooking));
+
+    Notification::assertSentTo($admin, BookingCreated::class);
 
 });
