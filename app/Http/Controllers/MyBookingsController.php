@@ -12,6 +12,7 @@ class MyBookingsController extends Controller
     public function index()
     {
         $myBookings = auth()->user()->bookings()
+            ->select('name', 'title', 'date', 'email')
             ->paginate(10);
 
         return Inertia::render('MyBookings', [
