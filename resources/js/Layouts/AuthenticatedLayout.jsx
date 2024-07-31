@@ -23,10 +23,10 @@ export default function Authenticated({ user, header, children }) {
                         </div>
                         <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <NavLink
-                                href={route("dashboard")}
-                                active={route().current("dashboard")}
+                                href={route("my.bookings")}
+                                active={route().current("my.bookings")}
                             >
-                                Dashboard
+                                My Bookings
                             </NavLink>
                             <NavLink
                                 href={route("booking.create")}
@@ -64,11 +64,6 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("logout")}
                                             method="post"
@@ -132,10 +127,10 @@ export default function Authenticated({ user, header, children }) {
                 >
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={route().current("dashboard")}
+                            href={route("my.bookings")}
+                            active={route().current("my.bookings")}
                         >
-                            Dashboard
+                            My Bookings
                         </ResponsiveNavLink>
                     </div>
 
@@ -150,9 +145,6 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
-                                Profile
-                            </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
                                 href={route("logout")}
