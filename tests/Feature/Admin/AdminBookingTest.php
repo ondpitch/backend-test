@@ -6,8 +6,9 @@ use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 
 test('can see all bookings', function () {
-    $admin = User::factory(['email' => 'admin@bookings.com', 'password' => 'password', 'role' => RoleStatus::ADMIN->value])
-        ->create();
+    $this->seed();
+
+    $admin = User::where('role', RoleStatus::ADMIN->value)->first();
 
     $this->actingAs($admin);
 

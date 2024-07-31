@@ -7,8 +7,7 @@ use App\Notifications\BookingCreated;
 use Illuminate\Support\Facades\Notification;
 
 test('can create booking', function () {
-    User::factory(['email' => 'admin@bookings.com', 'password' => 'password', 'role' => RoleStatus::ADMIN->value])
-        ->create();
+    $this->seed();
 
     $user = User::factory()->create();
     $this->actingAs($user);
