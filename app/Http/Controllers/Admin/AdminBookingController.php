@@ -14,7 +14,7 @@ class AdminBookingController extends Controller
      */
     public function index(): InertiaResponse
     {
-        $bookings = Booking::select('name', 'title', 'date', 'email')->latest()->paginate(10);
+        $bookings = Booking::with('user')->latest()->paginate(10);
 
         return Inertia::render('Admin/Index', [
             'bookings' => $bookings,

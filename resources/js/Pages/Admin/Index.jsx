@@ -21,13 +21,13 @@ export default function MyBookings({ auth, bookings }) {
                                                     scope="col"
                                                     className="text-left py-3 px-3"
                                                 >
-                                                    Name
+                                                    Title
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="text-left py-3 px-3"
                                                 >
-                                                    Title
+                                                    Name
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -50,13 +50,13 @@ export default function MyBookings({ auth, bookings }) {
                                                     className="border-b-[2px] border-t-[2px] transition duration-300 ease-in-out cursor-pointer hover:bg-light-ash border-light-ash"
                                                 >
                                                     <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
-                                                        {ele.name}
-                                                    </td>
-                                                    <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
                                                         {ele.title}
                                                     </td>
                                                     <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
-                                                        {ele.email}
+                                                        {ele.user?.name}
+                                                    </td>
+                                                    <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
+                                                        {ele.user?.email}
                                                     </td>
                                                     <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
                                                         {ele.date}
