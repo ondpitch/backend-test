@@ -20,8 +20,6 @@ class BookingFactory extends Factory
         return [
             'user_id' => User::factory(),
             'title' => fake()->title(),
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
             'date' => fake()->date(),
 
         ];

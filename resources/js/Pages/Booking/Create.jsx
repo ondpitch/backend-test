@@ -32,27 +32,6 @@ export default function Create({ auth }) {
                         <form onSubmit={submit}>
                             <div className="w-full flex flex-col gap-2 md:flex-row">
                                 <div className="w-full md:w-1/2">
-                                    <InputLabel htmlFor="name" value="Name" />
-
-                                    <TextInput
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) =>
-                                            setData("name", e.target.value)
-                                        }
-                                    />
-
-                                    <InputError
-                                        message={errors.name}
-                                        className="mt-2"
-                                    />
-                                </div>
-
-                                <div className="w-full md:w-1/2">
                                     <InputLabel htmlFor="title" value="Title" />
 
                                     <TextInput
@@ -69,28 +48,6 @@ export default function Create({ auth }) {
 
                                     <InputError
                                         message={errors.title}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-                            <div className="w-full flex flex-col gap-2 mt-4 md:flex-row">
-                                <div className="w-full md:w-1/2">
-                                    <InputLabel htmlFor="email" value="Email" />
-
-                                    <TextInput
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        value={data.email}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) =>
-                                            setData("email", e.target.value)
-                                        }
-                                    />
-
-                                    <InputError
-                                        message={errors.email}
                                         className="mt-2"
                                     />
                                 </div>
