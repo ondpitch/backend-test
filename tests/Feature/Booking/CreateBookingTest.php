@@ -13,10 +13,8 @@ test('can create booking', function () {
     $this->actingAs($user);
 
     $requestData = [
-        'name' => 'John Doe',
         'title' => 'Test Title',
         'date' => now(),
-        'email' => 'user@test.com',
     ];
 
     $response = $this->actingAs($user)->post('/book', $requestData);
